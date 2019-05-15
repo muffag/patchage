@@ -1,10 +1,12 @@
 import { prompt } from 'inquirer';
+import { getAllMetas } from './patch';
+import { getQuestions } from './questions';
 
-prompt([
-  {
-    name: 'path',
-    message: 'Please enter your directory (empty for current directory)'
-  }
-]).then(answers => {
+const start = async () => {
+  const metas = await getAllMetas();
+  const answers = await prompt(getQuestions(metas));
+
   console.log(answers);
-});
+};
+
+start();
