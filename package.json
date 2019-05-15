@@ -1,0 +1,40 @@
+{
+  "name": "package-integration",
+  "version": "1.0.0",
+  "description": "A tool",
+  "main": "dest/main.js",
+  "bin": {
+    "npi": "./bin/npi"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dest && tsc",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.muffag.ch:7999/dev/node-package-integration.git"
+  },
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^6.0.2",
+    "@types/node": "^11.12.0",
+    "nodemon": "^1.19.0",
+    "tslint": "^4.5.1",
+    "typescript": "^3.1.6"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/**/*.spec.ts"
+    ],
+    "exec": "npm run build && node dest/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
