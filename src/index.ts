@@ -2,11 +2,12 @@ import { execSync } from 'child_process';
 import 'colors';
 import { prompt } from 'inquirer';
 import { log } from './logger';
-import { getAllMetas } from './patch';
 import { QuestionType } from './question-type';
+import { scanPatches } from './scanner/scanner';
+import { applyPatch } from './patcher/patcher';
 
 const run = async () => {
-  const patches = await getAllMetas();
+  const patches = await scanPatches(__dirname + '/../patches');
 
   const answers: {
     [QuestionType.Target]: string;
@@ -33,12 +34,18 @@ const run = async () => {
   ]);
 
   const targetPath = answers[QuestionType.Target];
-  const chosenPatches = answers[QuestionType.Patches];
+  const chosenPatches = answers[QuestionType.Patches].map(patchName => {
+    return patches.find(p => p.name === patchName)!;
+  });
 
   log(
     `Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
-      chosenPatches.map(answer => answer.cyan).join(', ')
+      chosenPatches.map(answer => answer.name.cyan).join(', ')
   );
+
+  for (let patch of chosenPatches) {
+    applyPatch(patch, targetPath);
+  }
 
   log('Running command: ' + 'npm install --save'.bgYellow.black);
 
