@@ -1,0 +1,4 @@
+{
+  "name": "husky",
+  "description": "Install husky and setup pre-commit and pre-push hooks"
+}

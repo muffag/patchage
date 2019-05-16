@@ -31,7 +31,8 @@
     "nodemon": "^1.19.0",
     "tslint": "^4.5.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.1.6",
+    "husky": "^2.2.0"
   },
   "nodemonConfig": {
     "watch": [
@@ -44,5 +45,11 @@
     "exec": "npm run build"
   },
   "author": "Muff Kirchturmtechnik AG",
-  "license": "ISC"
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
+  }
 }
