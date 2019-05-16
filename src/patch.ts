@@ -1,8 +1,8 @@
 import { exists, readdir, readFile } from 'fs-extra';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { PatchMeta, PatchManifest } from './types';
 
-const basePath = './example/patches';
+const basePath = resolve(join(__dirname, '../patches'));
 
 export const getAllMetas = (): Promise<PatchMeta[]> => {
   return new Promise<PatchMeta[]>(async res => {
