@@ -1,7 +1,7 @@
 {
-  "name": "package-integration",
-  "version": "1.0.0",
-  "description": "A tool",
+  "name": "patchage",
+  "version": "0.0.1",
+  "description": "Easily install packages with their configuration",
   "main": "dest/main.js",
   "bin": {
     "npi": "./bin/npi"
