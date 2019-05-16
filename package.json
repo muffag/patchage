@@ -4,7 +4,7 @@
   "description": "Easily install packages with their configuration",
   "main": "dest/main.js",
   "bin": {
-    "npi": "./bin/npi"
+    "patchage": "./bin/patchage"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
