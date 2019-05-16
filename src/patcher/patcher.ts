@@ -1,6 +1,7 @@
 import { IPatch } from '../scanner/scanner.interface';
 import { readFile, writeFile } from 'fs-extra';
 import { join } from 'path';
+import { merge } from 'lodash';
 
 /**
  * Used to apply a given IPatch to a target directory.
@@ -26,8 +27,8 @@ async function mergePackageJson(sourcePath: string, targetPath: string) {
   const parsedSource = JSON.parse(sourcePackageJson.toString());
   const parsedTarget = JSON.parse(targetPackageJson.toString());
 
-  // Assigned the target to the source
-  const merged = Object.assign(parsedSource, parsedTarget);
+  // Merge source and target objects
+  const merged = merge(parsedSource, parsedTarget);
 
   // Stringify merged object and write to source path
   await writeFile(sourcePath, JSON.stringify(merged, null, 2));
