@@ -1,8 +1,8 @@
-export interface PatchManifest {
+export interface IPatchManifest {
   name: string;
   description: string;
 }
 
-export interface PatchMeta extends PatchManifest {
+export interface IPatchMeta extends IPatchManifest {
   files: string[];
 }

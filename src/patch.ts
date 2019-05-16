@@ -1,18 +1,18 @@
 import { exists, readdir, readFile } from 'fs-extra';
 import { join, resolve } from 'path';
-import { PatchMeta, PatchManifest } from './types';
+import { IPatchManifest, IPatchMeta } from './types';
 
 const basePath = resolve(join(__dirname, '../patches'));
 
-export const getAllMetas = (): Promise<PatchMeta[]> => {
-  return new Promise<PatchMeta[]>(async res => {
+export const getAllMetas = (): Promise<IPatchMeta[]> => {
+  return new Promise<IPatchMeta[]>(async res => {
     const dirNames = await readdir(basePath);
     const metas = await Promise.all(dirNames.map(dirName => getMeta(dirName)));
     res(metas.filter(x => x !== null).map(x => x!));
   });
 };
 
-export const getMeta = (patchName: string): Promise<PatchMeta | null> => {
+export const getMeta = (patchName: string): Promise<IPatchMeta | null> => {
   return new Promise(async res => {
     const manifest = await getManifest(patchName);
 
@@ -34,7 +34,7 @@ export const getMeta = (patchName: string): Promise<PatchMeta | null> => {
 
 export const getManifest = (
   patchName: string
-): Promise<PatchManifest | null> => {
+): Promise<IPatchManifest | null> => {
   return new Promise(async res => {
     const path = join(basePath, patchName, 'manifest.json');
     exists(path, async exists => {
@@ -44,7 +44,7 @@ export const getManifest = (
       }
 
       const fileBuffer = await readFile(path);
-      res(JSON.parse(fileBuffer.toString()) as PatchManifest);
+      res(JSON.parse(fileBuffer.toString()) as IPatchManifest);
     });
   });
 };

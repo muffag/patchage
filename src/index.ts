@@ -1,9 +1,9 @@
+import { execSync } from 'child_process';
 import 'colors';
 import { prompt } from 'inquirer';
+import { log } from './logger';
 import { getAllMetas } from './patch';
 import { QuestionType } from './question-type';
-import { execSync } from 'child_process';
-import { log } from './logger';
 
 const run = async () => {
   const patches = await getAllMetas();
@@ -17,7 +17,7 @@ const run = async () => {
       message: 'Enter target directory',
       default: process.cwd()
     },
-    <any>{
+    {
       name: QuestionType.Patches,
       type: 'checkbox',
       message: 'Select patches to apply',
@@ -29,7 +29,7 @@ const run = async () => {
         // Remove description from answer
         return values.map(value => value.replace(/\s.+$/, ''));
       }
-    }
+    } as any
   ]);
 
   const targetPath = answers[QuestionType.Target];
