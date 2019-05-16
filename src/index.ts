@@ -3,6 +3,7 @@ import { prompt } from 'inquirer';
 import { getAllMetas } from './patch';
 import { QuestionType } from './question-type';
 import { execSync } from 'child_process';
+import { log } from './logger';
 
 const run = async () => {
   const patches = await getAllMetas();
@@ -34,19 +35,19 @@ const run = async () => {
   const targetPath = answers[QuestionType.Target];
   const chosenPatches = answers[QuestionType.Patches];
 
-  console.log(
-    `📦 Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
+  log(
+    `Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
       chosenPatches.map(answer => answer.cyan).join(', ')
   );
 
-  console.log('📦 Running command: ' + 'npm install --save'.bgYellow.black);
+  log('Running command: ' + 'npm install --save'.bgYellow.black);
 
   execSync('npm install --save', {
     stdio: [0, 1, 2],
     cwd: targetPath
   });
 
-  console.log('📦 Complete!');
+  log('Complete!');
 };
 
 run();
