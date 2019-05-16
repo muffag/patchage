@@ -4,20 +4,20 @@ import { getAllMetas } from './patch';
 import { QuestionType } from './question-type';
 import { exec } from 'child_process';
 
-const start = async () => {
+const run = async () => {
   const patches = await getAllMetas();
 
   const answers: {
-    [QuestionType.PATH]: string;
-    [QuestionType.PATCHTYPE]: string[];
+    [QuestionType.Target]: string;
+    [QuestionType.Patches]: string[];
   } = await prompt([
     {
-      name: QuestionType.PATH,
+      name: QuestionType.Target,
       message: 'Enter target directory',
       default: process.cwd()
     },
     <any>{
-      name: QuestionType.PATCHTYPE,
+      name: QuestionType.Patches,
       type: 'checkbox',
       message: 'Select patches to apply',
       choices: patches.map(patch => ({
@@ -31,18 +31,19 @@ const start = async () => {
     }
   ]);
 
-  const chosenPatches = answers[QuestionType.PATCHTYPE];
+  const targetPath = answers[QuestionType.Target];
+  const chosenPatches = answers[QuestionType.Patches];
 
   console.log(
     `📦 Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
       chosenPatches.map(answer => answer.cyan).join(', ')
   );
 
-  console.log('📦 Running command: ' + 'npm install -s'.bgYellow.black);
+  console.log('📦 Running command: ' + 'npm install --save'.bgYellow.black);
 
-  const child = exec('npm install -s');
+  const child = exec('npm install --save', { cwd: targetPath });
   child.stdout!.pipe(process.stdout);
   child.stderr!.pipe(process.stderr);
 };
 
-start();
+run();

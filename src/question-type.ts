@@ -1,4 +1,4 @@
 export enum QuestionType {
-  PATH = 'PATH',
-  PATCHTYPE = 'PATCHTYPE'
+  Target = 'TARGET',
+  Patches = 'PATCHES'
 }
