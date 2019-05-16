@@ -1,7 +1,10 @@
 {
+  "scripts": {
+    "start:dev": "nodemon"
+  },
   "devDependencies": {
-    "nodemon": "*",
-    "ts-node": "*"
+    "nodemon": "^1.19.0",
+    "ts-node": "^8.1.0"
   },
   "nodemonConfig": {
     "watch": [
