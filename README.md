@@ -1,7 +1,13 @@
 <center>
-<h1>Patchage</h1>
+<h1>📦 Patchage</h1>
 <h5>Install packages with the needed configs</h5>
 </center>
+
+## About
+
+⚠️ Patchage is in alpha!
+
+Patchage is a CLI utility to install node modules and provide opinionated configs with them.
 
 ## Development
 
