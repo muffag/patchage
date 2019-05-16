@@ -1,13 +1,13 @@
-<center>
 <h1>📦 Patchage</h1>
-<h5>Install packages with the needed configs</h5>
-</center>
+Install packages with opinionated configs.
 
 ## About
 
 **⚠️ Patchage is currently in alpha!**
 
 Patchage is a CLI utility to quickly install node modules and provide opinionated configs with them.
+
+![demo gif](.github/demo.gif)
 
 ## Development
 
