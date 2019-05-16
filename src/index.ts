@@ -2,7 +2,7 @@ import 'colors';
 import { prompt } from 'inquirer';
 import { getAllMetas } from './patch';
 import { QuestionType } from './question-type';
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 
 const run = async () => {
   const patches = await getAllMetas();
@@ -41,13 +41,12 @@ const run = async () => {
 
   console.log('📦 Running command: ' + 'npm install --save'.bgYellow.black);
 
-  const child = exec('npm install --save', { cwd: targetPath });
-  child.stdout!.pipe(process.stdout);
-  child.stderr!.pipe(process.stderr);
-
-  child.on('exit', () => {
-    console.log('📦 Complete!');
+  execSync('npm install --save', {
+    stdio: [0, 1, 2],
+    cwd: targetPath
   });
+
+  console.log('📦 Complete!');
 };
 
 run();
