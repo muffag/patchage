@@ -44,12 +44,12 @@ const run = async () => {
   );
 
   for (let patch of chosenPatches) {
-    applyPatch(patch, targetPath);
+    await applyPatch(patch, targetPath);
   }
 
-  log('Running command: ' + 'npm install --save'.bgYellow.black);
+  log('Running command: ' + 'npm install'.bgYellow.black);
 
-  execSync('npm install --save', {
+  execSync('npm install', {
     stdio: [0, 1, 2],
     cwd: targetPath
   });
