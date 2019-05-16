@@ -1,7 +1,7 @@
-import { IPatch } from '../scanner/scanner.interface';
 import { readFile, writeFile } from 'fs-extra';
-import { join } from 'path';
 import { merge } from 'lodash';
+import { join } from 'path';
+import { IPatch } from '../scanner/scanner.interface';
 
 /**
  * Used to apply a given IPatch to a target directory.

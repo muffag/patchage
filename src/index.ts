@@ -1,13 +1,14 @@
 import { execSync } from 'child_process';
 import 'colors';
 import { prompt } from 'inquirer';
+import { join } from 'path';
 import { log } from './logger';
+import { applyPatch } from './patcher/patcher';
 import { QuestionType } from './question-type';
 import { scanPatches } from './scanner/scanner';
-import { applyPatch } from './patcher/patcher';
 
 const run = async () => {
-  const patches = await scanPatches(__dirname + '/../patches');
+  const patches = await scanPatches(join(__dirname, '../patches'));
 
   const answers: {
     [QuestionType.Target]: string;
@@ -43,7 +44,7 @@ const run = async () => {
       chosenPatches.map(answer => answer.name.cyan).join(', ')
   );
 
-  for (let patch of chosenPatches) {
+  for (const patch of chosenPatches) {
     await applyPatch(patch, targetPath);
   }
 
