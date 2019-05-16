@@ -1,4 +1,4 @@
 {
-  "name": "nodemon",
-  "description": "Applies patch for nodemon package"
+  "name": "typescript-nodemon",
+  "description": "Installs nodemon and ts-node"
 }

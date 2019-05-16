@@ -1,0 +1,4 @@
+{
+  "name": "typescript-jest",
+  "description": "Installs jest, ts-jest and @types/jest"
+}
