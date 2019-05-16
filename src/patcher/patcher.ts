@@ -1,12 +1,14 @@
-import { readFile, writeFile } from 'fs-extra';
+import { copy, mkdirp, readFile, writeFile } from 'fs-extra';
 import { merge } from 'lodash';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { IPatch } from '../scanner/scanner.interface';
 
 /**
  * Used to apply a given IPatch to a target directory.
  */
 export async function applyPatch(patch: IPatch, targetDirectory: string) {
+  await copyFiles(patch, targetDirectory);
+
   await mergePackageJson(
     join(targetDirectory, 'package.json'),
     join(patch.directory, 'package.json')
@@ -32,4 +34,18 @@ async function mergePackageJson(sourcePath: string, targetPath: string) {
 
   // Stringify merged object and write to source path
   await writeFile(sourcePath, JSON.stringify(merged, null, 2));
+}
+
+async function copyFiles(patch: IPatch, targetDirectory: string) {
+  if (!patch.copyFiles) {
+    return;
+  }
+
+  for (const entry of patch.copyFiles) {
+    const sourcePath = join(patch.directory, entry.source);
+    const targetPath = join(targetDirectory, entry.target);
+
+    await mkdirp(dirname(targetPath));
+    await copy(sourcePath, targetPath);
+  }
 }
