@@ -1,7 +1,7 @@
 {
   "name": "patchage",
   "version": "0.0.1",
-  "description": "Easily install packages with their configuration",
+  "description": "Easily install packages with opinionated configuration",
   "author": "Muff Kirchturmtechnik AG",
   "license": "ISC",
   "main": "dest/main.js",
@@ -14,10 +14,6 @@
     "start:dev": "nodemon",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint -c tslint.json 'src/**/*.ts' --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@bitbucket.muffag.ch:7999/dev/node-package-integration.git"
   },
   "dependencies": {
     "colors": "^1.3.3",
