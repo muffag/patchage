@@ -17,7 +17,7 @@ const run = async () => {
     {
       name: QuestionType.Target,
       message: 'Enter target directory',
-      default: process.cwd()
+      default: process.cwd(),
     },
     {
       name: QuestionType.Patches,
@@ -25,13 +25,13 @@ const run = async () => {
       message: 'Select patches to apply',
       choices: patches.map(patch => ({
         name: patch.name + ' ' + patch.description.grey,
-        checked: false
+        checked: false,
       })),
       filter: (values: string[]) => {
         // Remove description from answer
         return values.map(value => value.replace(/\s.+$/, ''));
-      }
-    } as any
+      },
+    } as any,
   ]);
 
   const targetPath = answers[QuestionType.Target];
@@ -52,7 +52,7 @@ const run = async () => {
 
   execSync('npm install', {
     stdio: [0, 1, 2],
-    cwd: targetPath
+    cwd: targetPath,
   });
 
   log('Running postinstall scripts');

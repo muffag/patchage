@@ -27,7 +27,7 @@ async function mergePackageJson(sourcePath: string, targetPath: string) {
   // Read and parse both JSON files into objects
   const [sourcePackageJson, targetPackageJson] = await Promise.all([
     readFile(sourcePath),
-    readFile(targetPath)
+    readFile(targetPath),
   ]);
   const parsedSource = JSON.parse(sourcePackageJson.toString());
   const parsedTarget = JSON.parse(targetPackageJson.toString());
@@ -68,7 +68,7 @@ export async function executeScripts(
 
   for (const entry of filteredScripts) {
     execSync('bash ' + join(patch.directory, entry.script), {
-      cwd: targetDirectory
+      cwd: targetDirectory,
     });
   }
 }
