@@ -1,6 +1,6 @@
 {
   "name": "commitlint-config-conventional",
-  "description": "Installs @commitlint/cli, @commitlint/config-conventional and husky for git hook",
+  "description": "Installs commitlint and husky for git hook",
   "copyFiles": [
     {
       "source": "./commitlint.config.js",
