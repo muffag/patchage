@@ -1,4 +1,4 @@
 {
-  "name": "typescript-jest",
+  "name": "jest-typescript-node",
   "description": "Installs jest, ts-jest and @types/jest"
 }
