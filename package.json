@@ -2,6 +2,8 @@
   "name": "patchage",
   "version": "0.0.1",
   "description": "Easily install packages with their configuration",
+  "author": "Muff Kirchturmtechnik AG",
+  "license": "ISC",
   "main": "dest/main.js",
   "bin": {
     "patchage": "./bin/patchage"
@@ -44,8 +46,6 @@
     ],
     "exec": "npm run build"
   },
-  "author": "Muff Kirchturmtechnik AG",
-  "license": "ISC",
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",
