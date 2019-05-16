@@ -3,7 +3,7 @@ import 'colors';
 import { prompt } from 'inquirer';
 import { join } from 'path';
 import { log } from './logger';
-import { applyPatch } from './patcher/patcher';
+import { applyPatch, executeScripts } from './patcher/patcher';
 import { QuestionType } from './question-type';
 import { scanPatches } from './scanner/scanner';
 
@@ -54,6 +54,12 @@ const run = async () => {
     stdio: [0, 1, 2],
     cwd: targetPath
   });
+
+  log('Running postinstall scripts');
+
+  for (const patch of chosenPatches) {
+    await executeScripts(patch, targetPath, 'postinstall');
+  }
 
   log('Complete!');
 };

@@ -10,8 +10,16 @@ export interface IPatch {
     // they don't exist.
     target: string;
   }>;
-  scripts: string[];
+  scripts?: Array<{
+    // Relative path to script file
+    script: string;
+
+    // When to execute
+    exec: ExecTiming;
+  }>;
 
   // Generated properties
   directory: string;
 }
+
+export type ExecTiming = 'preinstall' | 'postinstall';

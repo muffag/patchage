@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import { copy, mkdirp, readFile, writeFile } from 'fs-extra';
 import { merge } from 'lodash';
 import { dirname, join } from 'path';
-import { IPatch } from '../scanner/scanner.interface';
+import { ExecTiming, IPatch } from '../scanner/scanner.interface';
 
 /**
  * Used to apply a given IPatch to a target directory.
@@ -15,7 +15,7 @@ export async function applyPatch(patch: IPatch, targetDirectory: string) {
     join(patch.directory, 'package.json')
   );
 
-  executeScripts(patch, targetDirectory);
+  executeScripts(patch, targetDirectory, 'preinstall');
 }
 
 /**
@@ -53,8 +53,22 @@ async function copyFiles(patch: IPatch, targetDirectory: string) {
   }
 }
 
-async function executeScripts(patch: IPatch, targetDirectory: string) {
-  for (const script of patch.scripts) {
-    execSync('bash ' + join(patch.directory, script), { cwd: targetDirectory });
+export async function executeScripts(
+  patch: IPatch,
+  targetDirectory: string,
+  execTiming: ExecTiming
+) {
+  if (!patch.scripts) {
+    return;
+  }
+
+  const filteredScripts = patch.scripts.filter(
+    script => script.exec === execTiming
+  );
+
+  for (const entry of filteredScripts) {
+    execSync('bash ' + join(patch.directory, entry.script), {
+      cwd: targetDirectory
+    });
   }
 }
