@@ -3,8 +3,8 @@
   "description": "Installs prettier and adds .prettierrc",
   "copyFiles": [
     {
-      "source": "./prettierrc",
-      "target": "./prettierrc"
+      "source": "./.prettierrc",
+      "target": "./.prettierrc"
     }
   ]
 }
