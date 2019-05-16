@@ -5,9 +5,9 @@
 
 ## About
 
-⚠️ Patchage is in alpha!
+**⚠️ Patchage is currently in alpha!**
 
-Patchage is a CLI utility to install node modules and provide opinionated configs with them.
+Patchage is a CLI utility to quickly install node modules and provide opinionated configs with them.
 
 ## Development
 
