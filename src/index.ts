@@ -44,6 +44,10 @@ const run = async () => {
   const child = exec('npm install --save', { cwd: targetPath });
   child.stdout!.pipe(process.stdout);
   child.stderr!.pipe(process.stderr);
+
+  child.on('exit', () => {
+    console.log('📦 Complete!');
+  });
 };
 
 run();
