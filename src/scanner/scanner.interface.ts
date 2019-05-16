@@ -10,6 +10,7 @@ export interface IPatch {
     // they don't exist.
     target: string;
   }>;
+  scripts: string[];
 
   // Generated properties
   directory: string;

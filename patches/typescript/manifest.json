@@ -1,0 +1,5 @@
+{
+  "name": "typescript",
+  "description": "Installs typescript and adds tsconfig.json",
+  "scripts": ["init_tsconfig.sh"]
+}

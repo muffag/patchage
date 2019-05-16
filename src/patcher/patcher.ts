@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { copy, mkdirp, readFile, writeFile } from 'fs-extra';
 import { merge } from 'lodash';
 import { dirname, join } from 'path';
@@ -13,6 +14,8 @@ export async function applyPatch(patch: IPatch, targetDirectory: string) {
     join(targetDirectory, 'package.json'),
     join(patch.directory, 'package.json')
   );
+
+  executeScripts(patch, targetDirectory);
 }
 
 /**
@@ -47,5 +50,11 @@ async function copyFiles(patch: IPatch, targetDirectory: string) {
 
     await mkdirp(dirname(targetPath));
     await copy(sourcePath, targetPath);
+  }
+}
+
+async function executeScripts(patch: IPatch, targetDirectory: string) {
+  for (const script of patch.scripts) {
+    execSync('bash ' + join(patch.directory, script), { cwd: targetDirectory });
   }
 }
