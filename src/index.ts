@@ -3,7 +3,11 @@ import 'colors';
 import { prompt } from 'inquirer';
 import { join } from 'path';
 import { log } from './logger';
-import { applyPatch, executeScripts } from './patcher/patcher';
+import {
+  applyPatch,
+  executeScripts,
+  validateTargetDirectory,
+} from './patcher/patcher';
 import { QuestionType } from './question-type';
 import { scanPatches } from './scanner/scanner';
 
@@ -18,6 +22,10 @@ const run = async () => {
       name: QuestionType.Target,
       message: 'Enter target directory',
       default: process.cwd(),
+      validate: async (input: string) => {
+        const exists = await validateTargetDirectory(input);
+        return exists || 'No package.json file found';
+      },
     },
     {
       name: QuestionType.Patches,

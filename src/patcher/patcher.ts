@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { copy, mkdirp, readFile, writeFile } from 'fs-extra';
+import { copy, mkdirp, readFile, stat, writeFile } from 'fs-extra';
 import { merge } from 'lodash';
 import { dirname, join } from 'path';
 import { ExecTiming, IPatch } from '../scanner/scanner.interface';
@@ -70,5 +70,16 @@ export async function executeScripts(
     execSync('bash ' + join(patch.directory, entry.script), {
       cwd: targetDirectory,
     });
+  }
+}
+
+export async function validateTargetDirectory(
+  directory: string
+): Promise<boolean> {
+  try {
+    const stats = await stat(join(directory, 'package.json'));
+    return true;
+  } catch (error) {
+    return false;
   }
 }
