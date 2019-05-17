@@ -1,9 +1,11 @@
-import { readdir, readFile } from 'fs-extra';
+import { readdir, readFile, statSync } from 'fs-extra';
 import { join } from 'path';
 import { IPatch } from './scanner.interface';
 
 export async function scanPatches(patchDirectory: string) {
-  const subdirectoryNames = await readdir(patchDirectory);
+  const subdirectoryNames = (await readdir(patchDirectory)).filter(dir =>
+    statSync(join(patchDirectory, dir)).isDirectory()
+  );
   return Promise.all(
     subdirectoryNames.map(directoryName =>
       readManifest(join(patchDirectory, directoryName))
