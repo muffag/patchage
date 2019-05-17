@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { copy, mkdirp, readFile, writeFile } from 'fs-extra';
+import { copy, mkdirp, readFile, stat, writeFile } from 'fs-extra';
 import { merge } from 'lodash';
 import { dirname, join } from 'path';
 import { ExecTiming, IPatch } from '../scanner/scanner.interface';

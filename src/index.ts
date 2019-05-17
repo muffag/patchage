@@ -3,7 +3,9 @@ import 'colors';
 import { prompt } from 'inquirer';
 import { join } from 'path';
 import { log } from './logger';
+import { ensureVersionControl } from './patcher/ensure_version_control';
 import { applyPatch, executeScripts } from './patcher/patcher';
+import { validateTargetDirectory } from './patcher/validate_target_directory';
 import { QuestionType } from './question-type';
 import { scanPatches } from './scanner/scanner';
 
@@ -18,6 +20,10 @@ const run = async () => {
       name: QuestionType.Target,
       message: 'Enter target directory',
       default: process.cwd(),
+      validate: async (input: string) => {
+        const exists = await validateTargetDirectory(input);
+        return exists || 'No package.json file found';
+      },
     },
     {
       name: QuestionType.Patches,
@@ -38,6 +44,20 @@ const run = async () => {
   const chosenPatches = answers[QuestionType.Patches].map(patchName => {
     return patches.find(p => p.name === patchName)!;
   });
+
+  if (!(await ensureVersionControl(targetPath))) {
+    const confirmation: {
+      [QuestionType.ConfirmNoVersionControl]: boolean;
+    } = await prompt({
+      name: QuestionType.ConfirmNoVersionControl,
+      type: 'confirm',
+      message: 'No version control in target directory found. Continue?',
+    });
+
+    if (!confirmation[QuestionType.ConfirmNoVersionControl]) {
+      return log('Goodbye');
+    }
+  }
 
   log(
     `Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
