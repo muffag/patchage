@@ -3,11 +3,8 @@ import 'colors';
 import { prompt } from 'inquirer';
 import { join } from 'path';
 import { log } from './logger';
-import {
-  applyPatch,
-  executeScripts,
-  validateTargetDirectory,
-} from './patcher/patcher';
+import { applyPatch, executeScripts } from './patcher/patcher';
+import { validateTargetDirectory } from './patcher/validate_target_directory';
 import { QuestionType } from './question-type';
 import { scanPatches } from './scanner/scanner';
 
