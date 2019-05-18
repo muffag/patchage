@@ -1,6 +1,8 @@
 # Patches
 
-Patches get applied to existing repositories. A patch must always contain a `manifest.json` in the following format:
+Patches get applied to existing repositories. A patch must always contain a `manifest.json` and may contain a `package.json` which gets merged with the existing `package.json` in the target directory.
+
+**Example `manifest.json`**
 
 ```json
 {
@@ -18,6 +20,23 @@ Patches get applied to existing repositories. A patch must always contain a `man
       "exec": "postinstall"
     }
   ]
+}
+```
+
+**Example `package.json`**
+
+```json
+{
+  "devDependencies": {
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
+    "husky": "^2.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
 }
 ```
 
