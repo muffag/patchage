@@ -6,7 +6,7 @@ Install packages with opinionated configs.
 
 **⚠️ Patchage is currently in alpha!**
 
-Patchage is a CLI utility to quickly install node modules and provide opinionated configs with them. See the [patches directory](tree/master/patches) for more information on how it works.
+Patchage is a CLI utility to quickly install node modules and provide opinionated configs with them. See the [patches directory](patches) for more information on how it works.
 
 ![demo gif](.github/demo.gif)
 
