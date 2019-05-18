@@ -1,10 +1,10 @@
 {
   "name": "prettier",
   "description": "Installs prettier and adds .prettierrc",
-  "copyFiles": [
+  "files": [
     {
       "source": "./.prettierrc",
-      "target": "./.prettierrc"
+      "destination": "./.prettierrc"
     }
   ]
 }

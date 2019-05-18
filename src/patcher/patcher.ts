@@ -40,13 +40,13 @@ async function mergePackageJson(sourcePath: string, targetPath: string) {
 }
 
 async function copyFiles(patch: IPatch, targetDirectory: string) {
-  if (!patch.copyFiles) {
+  if (!patch.files) {
     return;
   }
 
-  for (const entry of patch.copyFiles) {
+  for (const entry of patch.files) {
     const sourcePath = join(patch.directory, entry.source);
-    const targetPath = join(targetDirectory, entry.target);
+    const targetPath = join(targetDirectory, entry.destination);
 
     await mkdirp(dirname(targetPath));
     await copy(sourcePath, targetPath);

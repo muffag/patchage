@@ -6,10 +6,10 @@ Patches get applied to existing repositories. A patch must always contain a `man
 {
   "name": "my-great-patch",
   "description": "Short description",
-  "copyFiles": [
+  "files": [
     {
       "source": "my.config.js",
-      "target": "src/my.config.js"
+      "destination": "src/my.config.js"
     }
   ],
   "scripts": [
@@ -23,10 +23,17 @@ Patches get applied to existing repositories. A patch must always contain a `man
 
 ## `manifest.json`
 
-### `copyFiles`
+### `files`
 
-Array of files you want to copy from the patch folder to the target directory. If the target directory does not exist, it gets created.
+Array of files you want to copy from the patch folder to the target directory. If the a directory int the target does not exist, it gets created.
 
 ### `scripts`
 
-TODO
+Array of bash scripts which will be executed in the target directory. The `exec` enum property defines when the script gets executed.
+
+#### `exec`
+
+| Value         | Description                    |
+| ------------- | ------------------------------ |
+| `preinstall`  | Execution before `npm install` |
+| `postinstall` | Execution after `npm install`  |
