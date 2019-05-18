@@ -1,0 +1,10 @@
+{
+  "name": "tslint",
+  "description": "Installs tslint and initializes its config",
+  "scripts": [
+    {
+      "script": "init_tslint.sh",
+      "exec": "postinstall"
+    }
+  ]
+}
