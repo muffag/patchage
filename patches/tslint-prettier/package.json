@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,html,md,gql,graphql,yml,css,less,scss}\""
+  },
+  "devDependencies": {
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5",
+    "prettier": "^1.17.1"
+  }
+}

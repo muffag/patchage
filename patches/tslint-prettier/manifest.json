@@ -1,0 +1,10 @@
+{
+  "name": "tslint-prettier",
+  "description": "Installs tslint and prettier with compatible configs",
+  "files": [
+    {
+      "source": "tslint.json",
+      "destination": "tslint.json"
+    }
+  ]
+}
