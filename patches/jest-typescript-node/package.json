@@ -10,23 +10,9 @@
     "@types/jest": "^24.0.13"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/$1"
-    },
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "../coverage",
+    "preset": "ts-jest",
     "collectCoverageFrom": [
-      "**/*.ts"
-    ],
-    "testEnvironment": "node"
+      "src/**/*.ts"
+    ]
   }
 }
