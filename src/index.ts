@@ -37,6 +37,9 @@ const run = async () => {
         // Remove description from answer
         return values.map(value => value.replace(/\s.+$/, ''));
       },
+      validate: (values: string[]) => {
+        return values.length > 0 || 'Please choose at least one patch';
+      },
     } as any,
   ]);
 
