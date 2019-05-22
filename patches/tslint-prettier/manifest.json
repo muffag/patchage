@@ -5,6 +5,10 @@
     {
       "source": "tslint.json",
       "destination": "tslint.json"
+    },
+    {
+      "source": ".prettierrc",
+      "destination": ".prettierrc"
     }
   ]
 }
