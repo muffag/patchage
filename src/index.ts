@@ -4,6 +4,11 @@ import { prompt } from 'inquirer';
 import { join } from 'path';
 import { log } from './logger';
 import { ensureVersionControl } from './patcher/ensure_version_control';
+import { getInstallCommandForPackageManager } from './patcher/get_install_command_for_package_manager';
+import {
+  guessPackageManager,
+  PackageManagerGuess,
+} from './patcher/guess_package_manager';
 import { applyPatch, executeScripts } from './patcher/patcher';
 import { validateTargetDirectory } from './patcher/validate_target_directory';
 import { QuestionType } from './question-type';
@@ -48,6 +53,10 @@ const run = async () => {
     return patches.find(p => p.name === patchName)!;
   });
 
+  /**
+   * Ensure that there is version control present in the `targetPath`. If there
+   * is not, make the user confirm the action.
+   */
   if (!(await ensureVersionControl(targetPath))) {
     const confirmation: {
       [QuestionType.ConfirmNoVersionControl]: boolean;
@@ -63,7 +72,33 @@ const run = async () => {
   }
 
   /**
-   * Applies all chosen patches
+   * Determine package manager. If the guess (based on `package-lock.json` and
+   * `yarn.lock` files) fails we ask the user which package manager they prefer.
+   */
+  const packageManagerGuess = await guessPackageManager(targetPath);
+  let installCommand =
+    packageManagerGuess === PackageManagerGuess.Npm
+      ? getInstallCommandForPackageManager('npm')
+      : packageManagerGuess === PackageManagerGuess.Yarn
+      ? getInstallCommandForPackageManager('yarn')
+      : '';
+
+  if (packageManagerGuess === PackageManagerGuess.Unknown) {
+    const result: {
+      [QuestionType.ChoosePackageManager]: 'npm' | 'yarn';
+    } = await prompt({
+      name: QuestionType.ChoosePackageManager,
+      message: 'Choose package manager',
+      type: 'list',
+      choices: ['npm', 'yarn'],
+    });
+    installCommand = getInstallCommandForPackageManager(
+      result[QuestionType.ChoosePackageManager]
+    );
+  }
+
+  /**
+   * Apply all chosen patches.
    */
   log(
     `Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
@@ -73,12 +108,11 @@ const run = async () => {
     await applyPatch(patch, targetPath);
   }
 
-  log('Running command: ' + 'npm install'.bgYellow.black);
-
   /**
-   * Execute install command of preferred package manager
+   * Execute install command of preferred package manager.
    */
-  execSync('npm install', {
+  log('Running command: ' + installCommand.bgYellow.black);
+  execSync(installCommand, {
     stdio: [0, 1, 2],
     cwd: targetPath,
   });
