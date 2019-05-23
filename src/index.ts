@@ -76,25 +76,30 @@ const run = async () => {
    * `yarn.lock` files) fails we ask the user which package manager they prefer.
    */
   const packageManagerGuess = await guessPackageManager(targetPath);
-  let installCommand =
-    packageManagerGuess === PackageManagerGuess.Npm
-      ? getInstallCommandForPackageManager('npm')
-      : packageManagerGuess === PackageManagerGuess.Yarn
-      ? getInstallCommandForPackageManager('yarn')
-      : '';
+  let installCommand: string;
 
-  if (packageManagerGuess === PackageManagerGuess.Unknown) {
-    const result: {
-      [QuestionType.ChoosePackageManager]: 'npm' | 'yarn';
-    } = await prompt({
-      name: QuestionType.ChoosePackageManager,
-      message: 'Choose package manager',
-      type: 'list',
-      choices: ['npm', 'yarn'],
-    });
-    installCommand = getInstallCommandForPackageManager(
-      result[QuestionType.ChoosePackageManager]
-    );
+  switch (packageManagerGuess) {
+    case PackageManagerGuess.Npm:
+      installCommand = getInstallCommandForPackageManager('npm');
+      break;
+    case PackageManagerGuess.Yarn:
+      installCommand = getInstallCommandForPackageManager('yarn');
+      break;
+    case PackageManagerGuess.Unknown:
+      const result: {
+        [QuestionType.ChoosePackageManager]: 'npm' | 'yarn';
+      } = await prompt({
+        name: QuestionType.ChoosePackageManager,
+        message: 'Choose package manager',
+        type: 'list',
+        choices: ['npm', 'yarn'],
+      });
+      installCommand = getInstallCommandForPackageManager(
+        result[QuestionType.ChoosePackageManager]
+      );
+      break;
+    default:
+      throw new Error('Unknown package manager guess');
   }
 
   /**
