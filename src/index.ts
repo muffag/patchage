@@ -62,24 +62,32 @@ const run = async () => {
     }
   }
 
+  /**
+   * Applies all chosen patches
+   */
   log(
     `Applying ${chosenPatches.length > 1 ? 'patches' : 'patch'}: ` +
       chosenPatches.map(answer => answer.name.cyan).join(', ')
   );
-
   for (const patch of chosenPatches) {
     await applyPatch(patch, targetPath);
   }
 
   log('Running command: ' + 'npm install'.bgYellow.black);
 
+  /**
+   * Execute install command of preferred package manager
+   */
   execSync('npm install', {
     stdio: [0, 1, 2],
     cwd: targetPath,
   });
 
+  /**
+   * Run scripts with `exec` set to `postinstall`. These scripts usually depend
+   * on a certain node module being installed.
+   */
   log('Running postinstall scripts');
-
   for (const patch of chosenPatches) {
     await executeScripts(patch, targetPath, 'postinstall');
   }
