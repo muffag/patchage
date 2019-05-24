@@ -45,15 +45,8 @@ export function sortDependencies(packageJson: {
 /**
  * Clone an object and sort its keys alphabetically.
  */
-function sortKeysOfObject(obj: { [key: string]: string }) {
-  const clone: { [key: string]: string } = {};
-  const sortedKeys = Object.keys(obj).sort((a, b) => a.localeCompare(b));
-
-  for (const key of sortedKeys) {
-    Object.assign(clone, {
-      [key]: obj[key],
-    });
-  }
-
-  return clone;
+function sortKeysOfObject(obj: { [key: string]: any }) {
+  return Object.keys(obj)
+    .sort((a, b) => a.localeCompare(b))
+    .reduce((prev, key) => ({ ...prev, [key]: obj[key] }), {});
 }
