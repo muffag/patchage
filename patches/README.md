@@ -44,7 +44,7 @@ Patches get applied to existing repositories. A patch must always contain a `man
 
 ### `files`
 
-Array of files you want to copy from the patch folder to the target directory. If the a directory int the target does not exist, it gets created.
+Array of files you want to copy from the patch folder to the target directory. If the directory in the target does not exist, it gets created.
 
 ### `scripts`
 
