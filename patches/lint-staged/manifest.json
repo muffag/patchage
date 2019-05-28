@@ -1,0 +1,4 @@
+{
+  "name": "lint-staged",
+  "description": "Lint and test files that are staged in git"
+}
