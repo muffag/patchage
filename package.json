@@ -35,6 +35,7 @@
     "@types/node": "^12.0.2",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
+    "lint-staged": "^8.1.7",
     "nodemon": "^1.19.1",
     "prettier": "^1.17.1",
     "ts-jest": "^24.0.2",
@@ -54,8 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test && npm run lint",
-      "pre-push": "npm test && npm run lint",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -63,6 +63,14 @@
     "preset": "ts-jest",
     "collectCoverageFrom": [
       "src/**/*.ts"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint -c tslint.json --fix",
+      "prettier --write",
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   }
 }
