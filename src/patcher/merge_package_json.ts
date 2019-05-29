@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'fs-extra';
-import { cloneDeep, merge } from 'lodash';
+import { merge } from 'lodash';
 
 /**
  * Patches a package.json file at `sourcePath` with the file at `targetPath`.
