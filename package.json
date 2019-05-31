@@ -15,7 +15,8 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint -c tslint.json 'src/**/*.ts' --fix",
     "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,html,md,gql,graphql,yml,css,less,scss}\"",
-    "check:patches": "find patches -name \"package.json\" | xargs -I % ncu --packageFile %",
+    "check-patches": "find patches -name \"package.json\" | xargs -I % ncu --packageFile %",
+    "check-patches:upgrade": "find patches -name \"package.json\" | xargs -I % ncu --packageFile % -u",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage && open coverage/lcov-report/index.html"
   },
