@@ -7,7 +7,7 @@
   "devDependencies": {
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
-    "@types/jest": "^24.0.14"
+    "@types/jest": "^24.0.15"
   },
   "jest": {
     "preset": "ts-jest",
