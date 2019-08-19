@@ -5,7 +5,7 @@
     "test:cov": "jest --coverage && open coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "@types/jest": "^24.0.17"
   },
