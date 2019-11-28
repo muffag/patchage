@@ -4,7 +4,7 @@
     "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'"
   },
   "devDependencies": {
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   }
 }
